@@ -36,8 +36,32 @@ CALINE3_RECEPTOR_TOTALS <- function(
   XR, YR, ZR,
   XL1, YL1, XL2, YL2, WL, HL, NTYP, VPHL, EFL,
   UM, BRGM, CLASM, MIXHM,
-  ATIM, Z0, VS, VD
+  ATIM, Z0, VS, VD,
+  .coerce = TRUE
 ) {
+
+  if (.coerce) {
+    XR    <- as.single(XR)
+    YR    <- as.single(YR)
+    ZR    <- as.single(ZR)
+    XL1   <- as.single(XL1)
+    YL1   <- as.single(YL1)
+    XL2   <- as.single(XL2)
+    YL2   <- as.single(YL2)
+    WL    <- as.single(WL)
+    HL    <- as.single(HL)
+    NTYP  <- as.integer(NTYP)
+    VPHL  <- as.single(VPHL)
+    EFL   <- as.single(EFL)
+    UM    <- as.single(UM)
+    BRGM  <- as.single(BRGM)
+    CLASM <- as.integer(CLASM)
+    MIXHM <- as.single(MIXHM)
+    ATIM  <- as.single(ATIM)
+    Z0    <- as.single(Z0)
+    VS    <- as.single(VS)
+    VD    <- as.single(VD)
+  }
 
   # Receptor specifications
   NR <- as.integer(length(XR))
@@ -93,15 +117,15 @@ CALINE3_RECEPTOR_TOTALS <- function(
     stop("Mixing heights cannot include NA values.")
 
   # Call native code, using array C for results
-  rcp_args <- list(XR, YR, ZR)
-  lnk_args <- list(XL1, YL1, XL2, YL2, WL, HL, NTYP, VPHL, EFL)
-  met_args <- list(UM, BRGM, CLASM, MIXHM)
-  aux_args <- list(ATIM, Z0, VS, VD)
-  shape <- c(NR, NL)
+  shape <- c(NR, NM)
   C <- as.single(array(0.0, dim=shape))
-  retval <- do.call(
-    ".Fortran",
-    c("CALINE3_RECEPTOR_TOTALS", NR, rcp_args, NL, lnk_args, NM, met_args, aux_args, C=C),
+  retval <- .Fortran(
+    'CALINE3_RECEPTOR_TOTALS',
+    NR, XR, YR, ZR,
+    NL, XL1, YL1, XL2, YL2, WL, HL, NTYP, VPHL, EFL,
+    NM, UM, BRGM, CLASM, MIXHM,
+    ATIM, Z0, VS, VD,
+    C = C,
     PACKAGE = "CALINE3"
   )
   return(array(as.double(retval$C), dim=shape))
