@@ -10,3 +10,5 @@ src-x86_64/
 
 .svn
 .DS_Store
+
+*.bak
