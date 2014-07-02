@@ -1,9 +1,10 @@
-#' CALINE3.array
+#' CALINE3_MATRIX
 #'
-#' Wrapper for single-precision Fortran routine.
+#' For each receptor, predict the incremental contribution from each link
+#' under a single set of meteorological conditions.
 #'
 #' All coordinates are in meters unless otherwise specified.
-#' 
+#'
 #' @param XR x-coordinates of the receptors
 #' @param YR y-coordinates of the receptors
 #' @param ZR z-coordinates of the receptors (height above ground level, usually 1.8m)
@@ -25,48 +26,51 @@
 #' @param VS settling velocity, in cm/sec
 #' @param VD deposition velocity, in cm/sec
 #' @param .coerce force arguments to be cast to correct type
-#' 
-#' @return matrix of concentrations, in ug/m3
 #'
+#' @return NR x NL matrix of concentrations, where NR is the number of receptors
+#'         and NL is the number of links
+#'
+#' @useDynLib CALINE3
+#' @rdname CALINE3
 #' @export
-CALINE3.array <- function(
+CALINE3_MATRIX <- function(
 	XR, YR, ZR,
 	XL1, YL1, XL2, YL2, WL, HL, NTYP, VPHL, EFL,
 	U, BRG, CLAS, MIXH,
 	ATIM, Z0, VS, VD,
 	.coerce = TRUE
-) {	
-	
+) {
+
 	if (.coerce) {
-		XR <- as.single(XR)
-		YR <- as.single(YR)
-		ZR <- as.single(ZR)
-		XL1 <- as.single(XL1)
-		YL1 <- as.single(YL1)
-		XL2 <- as.single(XL2)
-		YL2 <- as.single(YL2)
-		WL <- as.single(WL)
-		HL <- as.single(HL)
+		XR   <- as.single(XR)
+		YR   <- as.single(YR)
+		ZR   <- as.single(ZR)
+		XL1  <- as.single(XL1)
+		YL1  <- as.single(YL1)
+		XL2  <- as.single(XL2)
+		YL2  <- as.single(YL2)
+		WL   <- as.single(WL)
+		HL   <- as.single(HL)
 		NTYP <- as.integer(NTYP)
 		VPHL <- as.single(VPHL)
-		EFL <- as.single(EFL)
-		U <- as.single(U)
-		BRG <- as.single(BRG)
+		EFL  <- as.single(EFL)
+		U    <- as.single(U)
+		BRG  <- as.single(BRG)
 		CLAS <- as.integer(CLAS)
 		MIXH <- as.single(MIXH)
 		ATIM <- as.single(ATIM)
-		Z0 <- as.single(Z0)
-		VS <- as.single(VS)
-		VD <- as.single(VD)
+		Z0   <- as.single(Z0)
+		VS   <- as.single(VS)
+		VD   <- as.single(VD)
 	}
 
 	NR <- length(XR)
 	NL <- length(XL1)
 	shape <- c(NR, NL)
 	C <- as.single(array(0.0, dim=shape))
-	
+
 	retval <- .Fortran(
-	 	'CALINE3_MATRIX', 
+	 	'CALINE3_MATRIX',
 		NR, XR, YR, ZR,
 		NL, XL1, YL1, XL2, YL2, WL, HL, NTYP, VPHL, EFL,
 		U, BRG, CLAS, MIXH,
