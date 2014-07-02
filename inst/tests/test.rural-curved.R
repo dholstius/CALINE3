@@ -40,7 +40,7 @@ Z0 <- 50.0
 VS <- 0.0
 VD <- 0.0
 
-C.ugm3 <- CALINE3.array(
+C.ugm3 <- CALINE3_MATRIX(
 	XR, YR, ZR,
 	XL1, YL1, XL2, YL2, WL, HL, NTYP, VPHL, EFL,
 	U, BRG, CLAS, MIXH,
@@ -50,8 +50,8 @@ C.ugm3 <- CALINE3.array(
 test_that('rural curved', {
 	C.ppm <- C.ugm3 * 0.0245 / 28.0
 	expect_equal(round(C.ppm, digits=1),
-		structure(c(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4.8, 
-			0, 0, 0, 0, 0, 1.5, 0, 0, 0, 3.7, 0, 0, 0, 2.1, 0, 0, 3.1, 0.4, 
+		structure(c(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4.8,
+			0, 0, 0, 0, 0, 1.5, 0, 0, 0, 3.7, 0, 0, 0, 2.1, 0, 0, 3.1, 0.4,
 			0.1, 0, 0, 0, 1.3, 0.5), .Dim = c(4L, 10L)
 		)
 	)

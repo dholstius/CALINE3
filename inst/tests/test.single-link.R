@@ -26,7 +26,7 @@ VD <- 0.0
 
 test_that('single link', {
 
-	C.ugm3 <- CALINE3.array(
+	C.ugm3 <- CALINE3_MATRIX(
 		XR, YR, ZR,
 		XL1, YL1, XL2, YL2, WL, HL, NTYP, VPHL, EFL,
 		U, BRG, CLAS, MIXH,
