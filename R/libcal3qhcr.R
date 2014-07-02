@@ -34,7 +34,7 @@
 #' @export
 CALINE3_RECEPTOR_TOTALS <- function(
   XR, YR, ZR,
-  XL1, YL1, XL2, YL2, WL, HL, TYP, VPHL, EFL,
+  XL1, YL1, XL2, YL2, WL, HL, NTYP, VPHL, EFL,
   UM, BRGM, CLASM, MIXHM,
   ATIM, Z0, VS, VD
 ) {
@@ -58,22 +58,20 @@ CALINE3_RECEPTOR_TOTALS <- function(
     stop("Link widths cannot include NA values.")
   if(any(is.na(HL)))
     stop("Link heights cannot include NA values.")
-  if(any(is.na(TYP)))
+  if(any(is.na(NTYP)))
     stop("Link classifications cannot include NA values.")
   if(any(is.na(VPHL)))
     stop("Link flows cannot include NA values.")
   if(any(is.na(EFL)))
     stop("Link emission factors cannot include NA values.")
-  if(is.character(TYP)) {
-    # Convert type classifications to integers.
-    # (because you can't pass characters to .Fortran() with DUP = FALSE )
-    clas.lookup <- list(AG=0, BR=1, FL=2, DP=3,
-                        `At Grade`=0, `Bridge`=1, `Fill`=2, `Depressed`=3)
-    NTYP <- as.integer(clas.lookup[TYP])
-  } else if(is.integer(TYP)) {
-    NTYP <- TYP
-  } else {
-    stop('TYP argument must be character or integer')
+  if (!is.integer(NTYP)) {
+    if (is.character(NTYP)) {
+      # Can't pass characters to .Fortran() with DUP = FALSE.
+      clas.lookup <- list(AG=0, BR=1, FL=2, DP=3, `At Grade`=0, `Bridge`=1, `Fill`=2, `Depressed`=3)
+      NTYP <- as.integer(clas.lookup[NTYP])
+    } else {
+      stop('NTYP argument must be character or integer')
+    }
   }
 
   # Meteorology specifications.
