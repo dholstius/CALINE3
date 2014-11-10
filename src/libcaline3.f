@@ -22,7 +22,7 @@ C     PARTICULAR PURPOSE. THE SOFTWARE AND ACCOMPANYING DOCUMENTATION, IF ANY,
 C     PROVIDED HEREUNDER IS PROVIDED "AS IS". REGENTS HAS NO OBLIGATION TO
 C     PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
 C
-      SUBROUTINE CALINE3_MATRIX(
+      SUBROUTINE CALINE3_LINK_CONTRIBUTIONS(
      +                   NR,      ! number of receptors
      +                   XR,      ! x-coordinates of receptors
      +                   YR,      ! y-coordinates of receptors

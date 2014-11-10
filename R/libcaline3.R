@@ -1,4 +1,4 @@
-#' CALINE3_MATRIX
+#' CALINE3_LINK_CONTRIBUTIONS
 #'
 #' For each receptor, predict the incremental contribution from each link
 #' under a single set of meteorological conditions.
@@ -17,10 +17,10 @@
 #' @param NTYP link classifications (1=at grade, 2=bridge, 3=fill, 4=depressed)
 #' @param VPHL link-level traffic volumes, in vehicles per hour
 #' @param EFL link-level emission factors, in grams per vehicle-mile per hour
-#' @param U wind speeds, in meters per second (not less than 1.0)
-#' @param BRG wind bearings, in degrees (direction wind is blowing from)
-#' @param CLAS stability classes (1, 2, 3, 4, 5, or 6)
-#' @param MIXH mixing heights, in meters (over 1000 skips mixing height calculations)
+#' @param UM wind speeds, in meters per second (not less than 1.0)
+#' @param BRGM wind bearings, in degrees (direction wind is blowing from)
+#' @param CLASM stability classes (1, 2, 3, 4, 5, or 6)
+#' @param MIXHM mixing heights, in meters (over 1000 skips mixing height calculations)
 #' @param ATIM averaging time, in minutes (usually 60)
 #' @param Z0 surface roughness, in centimeters
 #' @param VS settling velocity, in cm/sec
@@ -33,10 +33,10 @@
 #' @useDynLib CALINE3
 #' @rdname CALINE3
 #' @export
-CALINE3_MATRIX <- function(
+CALINE3_LINK_CONTRIBUTIONS <- function(
 	XR, YR, ZR,
 	XL1, YL1, XL2, YL2, WL, HL, NTYP, VPHL, EFL,
-	U, BRG, CLAS, MIXH,
+	UM, BRGM, CLASM, MIXHM,
 	ATIM, Z0, VS, VD,
 	.coerce = TRUE
 ) {
@@ -54,10 +54,10 @@ CALINE3_MATRIX <- function(
 		NTYP <- as.integer(NTYP)
 		VPHL <- as.single(VPHL)
 		EFL  <- as.single(EFL)
-		U    <- as.single(U)
-		BRG  <- as.single(BRG)
-		CLAS <- as.integer(CLAS)
-		MIXH <- as.single(MIXH)
+		UM    <- as.single(UM)
+		BRGM  <- as.single(BRGM)
+		CLASM <- as.integer(CLASM)
+		MIXHM <- as.single(MIXHM)
 		ATIM <- as.single(ATIM)
 		Z0   <- as.single(Z0)
 		VS   <- as.single(VS)
@@ -70,10 +70,10 @@ CALINE3_MATRIX <- function(
 	C <- as.single(array(0.0, dim=shape))
 
 	retval <- .Fortran(
-	 	'CALINE3_MATRIX',
+	 	'CALINE3_LINK_CONTRIBUTIONS',
 		NR, XR, YR, ZR,
 		NL, XL1, YL1, XL2, YL2, WL, HL, NTYP, VPHL, EFL,
-		U, BRG, CLAS, MIXH,
+		UM, BRGM, CLASM, MIXHM,
 		ATIM, Z0, VS, VD,
 		C = C,
 	 	PACKAGE = "CALINE3"
