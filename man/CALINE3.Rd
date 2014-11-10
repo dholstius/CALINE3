@@ -75,7 +75,7 @@ to the concentration at each receptor under a single set of meteorological condi
 }
 \details{
 All coordinates are in meters unless otherwise specified. By default, predicted
-concentrations are returned in units of grams per cubic meter (µg/m^3).
+concentrations are returned in units of grams per cubic meter (g/m^3).
 }
 \examples{
 CALINE3_RECEPTOR_TOTALS(

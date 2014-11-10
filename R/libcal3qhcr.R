@@ -5,7 +5,7 @@
 #' contributed by each link)
 #'
 #' All coordinates are in meters unless otherwise specified. By default, predicted
-#' concentrations are returned in units of grams per cubic meter (µg/m^3).
+#' concentrations are returned in units of grams per cubic meter (g/m^3).
 #'
 #' @param XR x-coordinates of the receptors
 #' @param YR y-coordinates of the receptors
