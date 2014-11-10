@@ -1,16 +1,49 @@
 #' CALINE3_RECEPTOR_TOTALS
 #'
-#' For each receptor, predict cumulative concentrations (contributed by all links)
-#' under a number of different meteorological conditions.
+#' Given a sample of representative meteorological conditions, CALINE3_RECEPTOR_TOTALS
+#' predicts cumulative concentrations at each receptor (from incremental concentrations
+#' contributed by each link)
 #'
-#' All coordinates are in meters unless otherwise specified.
+#' All coordinates are in meters unless otherwise specified. By default, predicted
+#' concentrations are returned in units of grams per cubic meter (µg/m^3).
 #'
-#' @return NR x NM matrix of concentrations, where NR is the number of receptors
-#'         and NM is the number of meteorological conditions
+#' @param XR x-coordinates of the receptors
+#' @param YR y-coordinates of the receptors
+#' @param ZR z-coordinates of the receptors (height above ground level, usually 1.8m)
+#' @param XL1 starting x-coordinates of the links
+#' @param YL1 starting y-coordinates of the links
+#' @param XL2 ending x-coordinates of the links
+#' @param YL2 ending y-coordinates of the links
+#' @param WL widths of the links
+#' @param HL heights of the links (above ground level)
+#' @param NTYP link classifications (1=at grade, 2=bridge, 3=fill, 4=depressed)
+#' @param VPHL link-level traffic volumes, in vehicles per hour
+#' @param EFL link-level emission factors, in grams per vehicle-mile per hour
+#' @param UM wind speeds, in meters per second (not less than 1.0)
+#' @param BRGM wind bearings, in degrees (direction wind is blowing from)
+#' @param CLASM stability classes (1, 2, 3, 4, 5, or 6)
+#' @param MIXHM mixing heights, in meters (over 1000 skips mixing height calculations)
+#' @param ATIM averaging time, in minutes (usually 60)
+#' @param Z0 surface roughness, in centimeters
+#' @param VS settling velocity, in cm/sec
+#' @param VD deposition velocity, in cm/sec
+#' @param .coerce force arguments to be cast to correct type
+#'
+#' @return CALINE3_RECEPTOR_TOTALS returns a matrix of concentrations of size NR x NM,
+#'         where NR is the number of receptors and NM is the number of meteorological conditions
 #'
 #' @useDynLib CALINE3
 #' @rdname CALINE3
 #' @export
+#'
+#' @examples
+#' CALINE3_RECEPTOR_TOTALS(
+#'   XR = 30., YR = 0., ZR = 1.8,
+#'   XL1 = 0., YL1 = -5000., XL2 = 0., YL2 = 5000.,
+#'   WL = 30., HL = 0., NTYP = 1, VPHL = 7500., EFL = 30.,
+#'   UM = 1.0, BRGM = 270., CLASM = 6, MIXHM = 1000.,
+#'   ATIM = 60., Z0 = 10., VS = 0., VD = 0.)
+#'
 CALINE3_RECEPTOR_TOTALS <- function(
   XR, YR, ZR,
   XL1, YL1, XL2, YL2, WL, HL, NTYP, VPHL, EFL,
@@ -97,16 +130,19 @@ CALINE3_RECEPTOR_TOTALS <- function(
 
   # Call native code, using array C for results
   shape <- c(NR, NM)
-  C <- as.single(array(0.0, dim=shape))
+  C <- as.single(array(0.0, dim = shape))
   retval <- .Fortran(
     'CALINE3_RECEPTOR_TOTALS',
     NR, XR, YR, ZR,
     NL, XL1, YL1, XL2, YL2, WL, HL, NTYP, VPHL, EFL,
-    NM, UM, BRGM, CLASM, MIXHM,
+    NM,
+    UM, BRGM, CLASM, MIXHM,
     ATIM, Z0, VS, VD,
     C = C,
     PACKAGE = "CALINE3"
   )
-  return(array(as.double(retval$C), dim=shape))
+
+  # Returned values are in g/m^3
+  with(retval, array(as.double(C), dim = shape))
 
 }
