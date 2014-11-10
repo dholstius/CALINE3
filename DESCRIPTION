@@ -1,9 +1,10 @@
 Package: CALINE3
 Type: Package
-Title: R interfaces to Fortran 77 implementation of CALINE3
+Title: R Interfaces to Fortran 77 Implementation of CALINE3
 Version: 1.1
-Date: 2014-07-02
+Date: 2014-11-10
 Author: David Holstius
 Maintainer: David Holstius <dholstius@baaqmd.gov>
 Description: R interfaces to Fortran 77 implementation of CALINE3
+License: file LICENSE
 NeedsCompilation: yes
