@@ -30,9 +30,9 @@ test_that('array lengths', {
 	expect_equal(length(EFL), NL)
 })
 
-U <- 1
-CLAS <- 6
-MIXH <- 1000
+UM <- 1
+CLASM <- 6
+MIXHM <- 1000
 
 ATIM <- 60.0
 Z0 <- 100.0
@@ -40,16 +40,16 @@ VS <- 0.0
 VD <- 0.0
 
 test_that('case 1', {
-	BRG <- 0
-	C.ugm3 <- CALINE3_MATRIX(
+	BRGM <- 0
+	C_ugm3 <- CALINE3_LINK_CONTRIBUTIONS(
 		XR, YR, ZR,
 		XL1, YL1, XL2, YL2, WL, HL, NTYP, VPHL, EFL,
-		U, BRG, CLAS, MIXH,
+		UM, BRGM, CLASM, MIXHM,
 		ATIM, Z0, VS, VD
 	)
-	C.ppm <- C.ugm3 * 0.0245 / 28.0
+	C_ppm <- C_ugm3 * 0.0245 / 28.0
 	expect_equal(
-		round(C.ppm, digits=1),
+		round(C_ppm, digits=1),
 		structure(c(0, 0, 0, 0, 0, 0, 0, 0, 0, 3.2, 0, 0, 0, 0, 0, 2.8,
 			0, 0, 0, 0, 0, 1.4, 0, 0, 0, 0, 0, 0, 3.6, 3.6, 3.6, 3.6, 3.6,
 			0, 0, 0, 0, 0, 0, 0, 6, 6, 6, 6, 6, 6, 0, 0, 0, 0, 0, 0, 0, 0.3,
@@ -59,16 +59,16 @@ test_that('case 1', {
 })
 
 test_that('case 2', {
-	BRG <- 90
-	C.ugm3 <- CALINE3_MATRIX(
+	BRGM <- 90
+	C_ugm3 <- CALINE3_LINK_CONTRIBUTIONS(
 		XR, YR, ZR,
 		XL1, YL1, XL2, YL2, WL, HL, NTYP, VPHL, EFL,
-		U, BRG, CLAS, MIXH,
+		UM, BRGM, CLASM, MIXHM,
 		ATIM, Z0, VS, VD
 	)
-	C.ppm <- C.ugm3 * 0.0245 / 28.0
+	C_ppm <- C_ugm3 * 0.0245 / 28.0
 	expect_equal(
-		round(C.ppm, digits=1),
+		round(C_ppm, digits=1),
 		structure(c(5.7, 8, 3.1, 12, 3.1, 3.5, 3.8, 3.9, 3.5, 3.1, 4.9,
 			4.8, 1.3, 2.1, 2.6, 0, 0.4, 0.3, 0.3, 0.1, 0, 0, 1, 1, 8.9, 5.8,
 			0, 0, 1.8, 1.1, 0.7, 0, 0, 0, 12.2, 11.6, 3.9, 3.6, 0.9, 2.6,
@@ -79,16 +79,16 @@ test_that('case 2', {
 })
 
 test_that('case 3', {
-	BRG <- 180
-	C.ugm3 <- CALINE3_MATRIX(
+	BRGM <- 180
+	C_ugm3 <- CALINE3_LINK_CONTRIBUTIONS(
 		XR, YR, ZR,
 		XL1, YL1, XL2, YL2, WL, HL, NTYP, VPHL, EFL,
-		U, BRG, CLAS, MIXH,
+		UM, BRGM, CLASM, MIXHM,
 		ATIM, Z0, VS, VD
 	)
-	C.ppm <- C.ugm3 * 0.0245 / 28.0
+	C_ppm <- C_ugm3 * 0.0245 / 28.0
 	expect_equal(
-		round(C.ppm, digits=1),
+		round(C_ppm, digits=1),
 		structure(c(0, 0, 3.2, 5.8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2.5,
 			0, 0, 0, 0, 0, 0, 0, 0, 0, 6.5, 6.5, 0, 0, 0, 0, 0, 0, 0, 0,
 			7, 3.8, 3, 3, 2.3, 3, 0, 0, 0, 0, 0, 0, 3.1, 2.6, 0, 0, 0, 0,
@@ -98,16 +98,16 @@ test_that('case 3', {
 })
 
 test_that('case 4', {
-	BRG <- 270
-	C.ugm3 <- CALINE3_MATRIX(
+	BRGM <- 270
+	C_ugm3 <- CALINE3_LINK_CONTRIBUTIONS(
 		XR, YR, ZR,
 		XL1, YL1, XL2, YL2, WL, HL, NTYP, VPHL, EFL,
-		U, BRG, CLAS, MIXH,
+		UM, BRGM, CLASM, MIXHM,
 		ATIM, Z0, VS, VD
 	)
-	C.ppm <- C.ugm3 * 0.0245 / 28.0
+	C_ppm <- C_ugm3 * 0.0245 / 28.0
 	expect_equal(
-		round(C.ppm, digits=1),
+		round(C_ppm, digits=1),
 		structure(c(0, 0, 0, 3.4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5.2,
 			0, 0, 0, 0, 0, 0, 0, 0, 14.3, 14.8, 5.3, 11.9, 3.4, 3.8, 4.1,
 			4.6, 5, 5.3, 16.3, 15.7, 3.3, 3.6, 2, 4.3, 13.4, 13.9, 14.2,
