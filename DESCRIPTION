@@ -5,6 +5,10 @@ Version: 1.1
 Date: 2014-11-10
 Author: David Holstius
 Maintainer: David Holstius <dholstius@baaqmd.gov>
-Description: CALINE3 is a steady-state atmospheric dispersion model used to predict pollutant concentrations downwind from mobile emission sources such as highway traffic.
+Description: CALINE3 is a steady-state atmospheric dispersion model used to
+    predict pollutant concentrations downwind from mobile emission sources such
+    as highway traffic.
 License: file LICENSE
+Suggests:
+    testthat
 NeedsCompilation: yes
