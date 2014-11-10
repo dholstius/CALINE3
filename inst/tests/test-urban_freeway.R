@@ -41,13 +41,13 @@ VD <- 0.0
 
 test_that('case 1', {
 	BRGM <- 0
-	C_ugm3 <- CALINE3_LINK_CONTRIBUTIONS(
+	C_gm3 <- CALINE3_LINK_CONTRIBUTIONS(
 		XR, YR, ZR,
 		XL1, YL1, XL2, YL2, WL, HL, NTYP, VPHL, EFL,
 		UM, BRGM, CLASM, MIXHM,
 		ATIM, Z0, VS, VD
 	)
-	C_ppm <- C_ugm3 * 0.0245 / 28.0
+	C_ppm <- C_gm3 * 0.0245 / 28.0
 	expect_equal(
 		round(C_ppm, digits=1),
 		structure(c(0, 0, 0, 0, 0, 0, 0, 0, 0, 3.2, 0, 0, 0, 0, 0, 2.8,
@@ -60,13 +60,13 @@ test_that('case 1', {
 
 test_that('case 2', {
 	BRGM <- 90
-	C_ugm3 <- CALINE3_LINK_CONTRIBUTIONS(
+	C_gm3 <- CALINE3_LINK_CONTRIBUTIONS(
 		XR, YR, ZR,
 		XL1, YL1, XL2, YL2, WL, HL, NTYP, VPHL, EFL,
 		UM, BRGM, CLASM, MIXHM,
 		ATIM, Z0, VS, VD
 	)
-	C_ppm <- C_ugm3 * 0.0245 / 28.0
+	C_ppm <- C_gm3 * 0.0245 / 28.0
 	expect_equal(
 		round(C_ppm, digits=1),
 		structure(c(5.7, 8, 3.1, 12, 3.1, 3.5, 3.8, 3.9, 3.5, 3.1, 4.9,
@@ -80,13 +80,13 @@ test_that('case 2', {
 
 test_that('case 3', {
 	BRGM <- 180
-	C_ugm3 <- CALINE3_LINK_CONTRIBUTIONS(
+	C_gm3 <- CALINE3_LINK_CONTRIBUTIONS(
 		XR, YR, ZR,
 		XL1, YL1, XL2, YL2, WL, HL, NTYP, VPHL, EFL,
 		UM, BRGM, CLASM, MIXHM,
 		ATIM, Z0, VS, VD
 	)
-	C_ppm <- C_ugm3 * 0.0245 / 28.0
+	C_ppm <- C_gm3 * 0.0245 / 28.0
 	expect_equal(
 		round(C_ppm, digits=1),
 		structure(c(0, 0, 3.2, 5.8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2.5,
@@ -99,13 +99,13 @@ test_that('case 3', {
 
 test_that('case 4', {
 	BRGM <- 270
-	C_ugm3 <- CALINE3_LINK_CONTRIBUTIONS(
+	C_gm3 <- CALINE3_LINK_CONTRIBUTIONS(
 		XR, YR, ZR,
 		XL1, YL1, XL2, YL2, WL, HL, NTYP, VPHL, EFL,
 		UM, BRGM, CLASM, MIXHM,
 		ATIM, Z0, VS, VD
 	)
-	C_ppm <- C_ugm3 * 0.0245 / 28.0
+	C_ppm <- C_gm3 * 0.0245 / 28.0
 	expect_equal(
 		round(C_ppm, digits=1),
 		structure(c(0, 0, 0, 3.4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5.2,
@@ -119,6 +119,6 @@ test_that('case 4', {
 
 message('
 For the urban freeway cases:
-  Some concentrations differ by <0.1 ppm CO compared to CALINE3 User Guide.
+  Some concentrations differ by < 0.1 ppm CO compared to CALINE3 User Guide.
   Not sure if this is data input error, compiler differences, or something else.
   Tests have not been written exactly against CALINE3 User Guide examples.')

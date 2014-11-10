@@ -45,23 +45,23 @@ expected_result <- structure(
     1.5, 0, 0, 0, 3.7, 0, 0, 0, 2.1, 0, 0, 3.1, 0.4, 0.1, 0, 0, 0, 1.3, 0.5), .Dim = c(4L, 10L))
 
 test_that('CALINE3_LINK_CONTRIBUTIONS', {
-  C_ugm3 <- CALINE3_LINK_CONTRIBUTIONS(
+  C_gm3 <- CALINE3_LINK_CONTRIBUTIONS(
     XR, YR, ZR,
     XL1, YL1, XL2, YL2, WL, HL, NTYP, VPHL, EFL,
     UM, BRGM, CLASM, MIXHM,
     ATIM, Z0, VS, VD
   )
-  C_ppm <- C_ugm3 * 0.0245 / 28.0
+  C_ppm <- C_gm3 * 0.0245 / 28.0
 	expect_that(round(C_ppm, digits=1), equals(expected_result))
 })
 
 test_that('CALINE3_RECEPTOR_TOTALS', {
-  C_ugm3 <- CALINE3_RECEPTOR_TOTALS(
+  C_gm3 <- CALINE3_RECEPTOR_TOTALS(
     XR, YR, ZR,
     XL1, YL1, XL2, YL2, WL, HL, NTYP, VPHL, EFL,
     UM, BRGM, CLASM, MIXHM,
     ATIM, Z0, VS, VD
   )
-  C_ppm <- C_ugm3 * 0.0245 / 28.0
+  C_ppm <- C_gm3 * 0.0245 / 28.0
   expect_that(abs(mean(as.vector(round(C_ppm, digits=1)) - rowSums(expected_result))), is_less_than(0.1))
 })

@@ -26,31 +26,26 @@ VD <- 0.0
 
 test_that('CALINE3_LINK_CONTRIBUTIONS', {
 
-	C_ugm3 <- CALINE3_LINK_CONTRIBUTIONS(
+	C_gm3 <- CALINE3_LINK_CONTRIBUTIONS(
 		XR, YR, ZR, XL1, YL1, XL2, YL2, WL, HL, NTYP, VPHL, EFL,
-		UM, BRGM, CLASM, MIXHM, ATIM, Z0, VS, VD
-	)
+		UM, BRGM, CLASM, MIXHM, ATIM, Z0, VS, VD)
 
-	C_ppm <- C_ugm3 * 0.0245 / 28.0
+	C_ppm <- C_gm3 * 0.0245 / 28.0
 	expect_equal(
-		round(C_ppm, digits=1),
-		array(4.6, c(1, 1))
-	)
+		round(C_ppm, digits = 1),
+		array(4.6, c(1, 1)))
 
 })
 
 test_that('CALINE3_RECEPTOR_TOTALS', {
 
-  C_ugm3 <- CALINE3_RECEPTOR_TOTALS(
+  C_gm3 <- CALINE3_RECEPTOR_TOTALS(
     XR, YR, ZR, XL1, YL1, XL2, YL2, WL, HL, NTYP, VPHL, EFL,
-    UM, BRGM, CLASM, MIXHM,
-    ATIM, Z0, VS, VD
-  )
+    UM, BRGM, CLASM, MIXHM, ATIM, Z0, VS, VD)
 
-  C_ppm <- C_ugm3 * 0.0245 / 28.0
+  C_ppm <- C_gm3 * 0.0245 / 28.0
   expect_equal(
-    round(C_ppm, digits=1),
-    array(4.6, c(1, 1))
-  )
+    round(C_ppm, digits = 1),
+    array(4.6, c(1, 1)))
 
 })
