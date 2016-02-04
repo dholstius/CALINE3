@@ -1,0 +1,68 @@
+      SUBROUTINE CAL3LNK(NL,LL,NTYP)
+
+      DOUBLE PRECISION LL(NL)
+      REAL VPHL(NL),EFL(NL),HL(NL),WL(NL)
+      REAL XL1(NL),XL2(NL),YL1(NL),YL2(NL)
+      INTEGER NTYP(NL)
+
+      IF (NTYP(IL).EQ.NTYP_DP .OR. NTYP(IL).EQ.NTYP_FL) THEN
+        H=0.
+      ELSE
+        H=HL(IL)
+      END IF
+      W=WL(IL)
+      W2=W/2.
+
+      Q1=0.1726*VPHL(IL)*EFL(IL)
+
+      XD=XL2(IL)-XL1(IL)
+      YD=YL2(IL)-YL1(IL)
+C      ABS(XD)=ABS(XD)
+      IF(ABS(XD).GT.LL(IL)) LL(IL)=ABS(XD)
+      LB=DEG*(ACOS(ABS(XD)/LL(IL)))
+      IF (XD.GT.0. .AND. YD.GE.0.) LB=90.-LB
+      IF (XD.GE.0. .AND. YD.LT.0.) LB=90.+LB
+      IF (XD.LT.0. .AND. YD.LE.0.) LB=270.-LB
+      IF (XD.LE.0. .AND. YD.GT.0.) LB=270.+LB
+
+      PHI=ABS(BRG-LB)
+      IF (PHI.LE.90.) GO TO 7600
+      IF (PHI.GE.270.) GO TO 5000
+      PHI=ABS(PHI-180.)
+      GO TO 7600
+ 5000 PHI=ABS(PHI-360.)
+ 7600 IF (PHI.LT.20.) GO TO 7630
+      IF (PHI.LT.50.) GO TO 7620
+      IF (PHI.LT.70.) GO TO 7610
+      BASE=4.
+      GO TO 7650
+ 7610 BASE=2.
+      GO TO 7650
+ 7620 BASE=1.5
+      GO TO 7650
+ 7630 BASE=1.1
+
+ 7650 PHI=RAD*(PHI)
+      IF (PHI.GT.1.5706) PHI=1.5706
+      IF (PHI.LT.0.00017) PHI=0.00017
+
+C *****  DEPRESSED SECTION  *****
+      IF (HL(IL).LT.-1.5) GO TO 7700
+      DSTR=1.
+      HDS=1.
+      GO TO 7800
+ 7700 HDS=HL(IL)
+      DSTR=0.72*ABS(HDS)**0.83
+C     ! RESIDENCE TIME FACTOR
+
+C *****  SIGMA Z POWER CURVE  *****
+ 7800 TR=DSTR*W2/U
+C     ! RESIDENCE TIME
+      SGZ1=ALOG((1.8+0.11*TR)*(ATIM/30.)**0.2)
+C     ! ALOG(SIGMA Z) AT W2
+      PZ2=(SZ10-SGZ1)/(DREF-ALOG(W2))
+      PZ1=EXP((SZ10+SGZ1-PZ2*(DREF+ALOG(W2)))/2.)
+
+      RETURN
+
+      END SUBROUTINE

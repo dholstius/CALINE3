@@ -41,7 +41,7 @@ VD <- 0.0
 
 test_that('case 1', {
 	BRGM <- 0
-	C_gm3 <- CALINE3_LINK_CONTRIBUTIONS(
+	C_gm3 <- CAL3RXL(
 		XR, YR, ZR,
 		XL1, YL1, XL2, YL2, WL, HL, NTYP, VPHL, EFL,
 		UM, BRGM, CLASM, MIXHM,
@@ -60,7 +60,7 @@ test_that('case 1', {
 
 test_that('case 2', {
 	BRGM <- 90
-	C_gm3 <- CALINE3_LINK_CONTRIBUTIONS(
+	C_gm3 <- CAL3RXL(
 		XR, YR, ZR,
 		XL1, YL1, XL2, YL2, WL, HL, NTYP, VPHL, EFL,
 		UM, BRGM, CLASM, MIXHM,
@@ -80,7 +80,7 @@ test_that('case 2', {
 
 test_that('case 3', {
 	BRGM <- 180
-	C_gm3 <- CALINE3_LINK_CONTRIBUTIONS(
+	C_gm3 <- CAL3RXL(
 		XR, YR, ZR,
 		XL1, YL1, XL2, YL2, WL, HL, NTYP, VPHL, EFL,
 		UM, BRGM, CLASM, MIXHM,
@@ -99,7 +99,7 @@ test_that('case 3', {
 
 test_that('case 4', {
 	BRGM <- 270
-	C_gm3 <- CALINE3_LINK_CONTRIBUTIONS(
+	C_gm3 <- CAL3RXL(
 		XR, YR, ZR,
 		XL1, YL1, XL2, YL2, WL, HL, NTYP, VPHL, EFL,
 		UM, BRGM, CLASM, MIXHM,
