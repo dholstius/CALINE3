@@ -4,6 +4,7 @@
 
 src/*.o
 src/*.so
+src/*.mod
 src/*.dll
 src/*.rds
 
