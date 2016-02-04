@@ -24,9 +24,9 @@ Z0 <- 10.0
 VS <- 0.0
 VD <- 0.0
 
-test_that('CALINE3_LINK_CONTRIBUTIONS', {
+test_that('CAL3RXL', {
 
-	C_gm3 <- CALINE3_LINK_CONTRIBUTIONS(
+	C_gm3 <- CAL3RXL(
 		XR, YR, ZR, XL1, YL1, XL2, YL2, WL, HL, NTYP, VPHL, EFL,
 		UM, BRGM, CLASM, MIXHM, ATIM, Z0, VS, VD)
 
@@ -37,9 +37,9 @@ test_that('CALINE3_LINK_CONTRIBUTIONS', {
 
 })
 
-test_that('CALINE3_RECEPTOR_TOTALS', {
+test_that('CAL3RXM', {
 
-  C_gm3 <- CALINE3_RECEPTOR_TOTALS(
+  C_gm3 <- CAL3RXM(
     XR, YR, ZR, XL1, YL1, XL2, YL2, WL, HL, NTYP, VPHL, EFL,
     UM, BRGM, CLASM, MIXHM, ATIM, Z0, VS, VD)
 

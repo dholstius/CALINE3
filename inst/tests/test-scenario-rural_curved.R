@@ -44,8 +44,8 @@ expected_result <- structure(
   c(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4.8, 0, 0, 0, 0, 0,
     1.5, 0, 0, 0, 3.7, 0, 0, 0, 2.1, 0, 0, 3.1, 0.4, 0.1, 0, 0, 0, 1.3, 0.5), .Dim = c(4L, 10L))
 
-test_that('CALINE3_LINK_CONTRIBUTIONS', {
-  C_gm3 <- CALINE3_LINK_CONTRIBUTIONS(
+test_that('CAL3RXL', {
+  C_gm3 <- CAL3RXL(
     XR, YR, ZR,
     XL1, YL1, XL2, YL2, WL, HL, NTYP, VPHL, EFL,
     UM, BRGM, CLASM, MIXHM,
@@ -55,8 +55,8 @@ test_that('CALINE3_LINK_CONTRIBUTIONS', {
 	expect_that(round(C_ppm, digits=1), equals(expected_result))
 })
 
-test_that('CALINE3_RECEPTOR_TOTALS', {
-  C_gm3 <- CALINE3_RECEPTOR_TOTALS(
+test_that('CAL3RXM', {
+  C_gm3 <- CAL3RXM(
     XR, YR, ZR,
     XL1, YL1, XL2, YL2, WL, HL, NTYP, VPHL, EFL,
     UM, BRGM, CLASM, MIXHM,
