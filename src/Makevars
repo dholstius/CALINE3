@@ -1,0 +1,13 @@
+CALINE3_FFLAGS := -Wno-unused -ffast-math -ffinite-math-only -funsafe-math-optimizations -Wno-conversion
+MACOSX_DEPLOYMENT_TARGET := 10.10
+
+all: $(SHLIB)
+
+cal3data.mod: cal3data.f
+	$(F77) $(FFLAGS) $(CALINE3_FFLAGS) -O3 -pipe -xf77-cpp-input -g -c $<
+
+%.o: %.f cal3data.mod
+	$(F77) $(FFLAGS) $(CALINE3_FFLAGS) -O3 -pipe -xf77-cpp-input -g -c $<
+
+clean:
+	rm -f *.o *.so *.mod

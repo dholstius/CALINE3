@@ -1,11 +1,11 @@
-#' CALINE3_RECEPTOR_TOTALS
+#' CAL3RXM
 #'
 #' Given a sample of representative meteorological conditions, CALINE3_RECEPTOR_TOTALS
 #' predicts cumulative concentrations at each receptor (from incremental concentrations
 #' contributed by each link)
 #'
 #' All coordinates are in meters unless otherwise specified. By default, predicted
-#' concentrations are returned in units of grams per cubic meter (g/m^3).
+#' concentrations are returned in units of grams per cubic meter (µg/m^3).
 #'
 #' @param XR x-coordinates of the receptors
 #' @param YR y-coordinates of the receptors
@@ -27,9 +27,10 @@
 #' @param Z0 surface roughness, in centimeters
 #' @param VS settling velocity, in cm/sec
 #' @param VD deposition velocity, in cm/sec
+#' @param LXR whether to process (or skip) a given receptor-link pair
 #' @param .coerce force arguments to be cast to correct type
 #'
-#' @return CALINE3_RECEPTOR_TOTALS returns a matrix of concentrations of size NR x NM,
+#' @return CAL3RXM returns a matrix of concentrations of size NR x NM,
 #'         where NR is the number of receptors and NM is the number of meteorological conditions
 #'
 #' @useDynLib CALINE3
@@ -37,18 +38,19 @@
 #' @export
 #'
 #' @examples
-#' CALINE3_RECEPTOR_TOTALS(
+#' CAL3RXM(
 #'   XR = 30., YR = 0., ZR = 1.8,
 #'   XL1 = 0., YL1 = -5000., XL2 = 0., YL2 = 5000.,
 #'   WL = 30., HL = 0., NTYP = 1, VPHL = 7500., EFL = 30.,
 #'   UM = 1.0, BRGM = 270., CLASM = 6, MIXHM = 1000.,
 #'   ATIM = 60., Z0 = 10., VS = 0., VD = 0.)
 #'
-CALINE3_RECEPTOR_TOTALS <- function(
+CAL3RXM <- function(
   XR, YR, ZR,
   XL1, YL1, XL2, YL2, WL, HL, NTYP, VPHL, EFL,
   UM, BRGM, CLASM, MIXHM,
   ATIM, Z0, VS, VD,
+  LXR,
   .coerce = TRUE
 ) {
 
@@ -128,16 +130,27 @@ CALINE3_RECEPTOR_TOTALS <- function(
   if(any(is.na(MIXHM)))
     stop("Mixing heights cannot include NA values.")
 
+  # Link-receptor pairs
+  if (missing(LXR)) {
+    message("Processing all ", NR * NL, " possible link-receptor pairs")
+    LXR <- as.logical(array(TRUE, dim = c(NR, NL)))
+  } else {
+    message("Processing ", sum(LXR), " of ", NR * NL, " possible link-receptor pairs")
+    stopifnot(is.logical(LXR))
+    stopifnot(identical(dim(LXR), c(NR, NL)))
+  }
+
   # Call native code, using array C for results
   shape <- c(NR, NM)
   C <- as.single(array(0.0, dim = shape))
   retval <- .Fortran(
-    'CALINE3_RECEPTOR_TOTALS',
+    'CAL3RXM',
     NR, XR, YR, ZR,
     NL, XL1, YL1, XL2, YL2, WL, HL, NTYP, VPHL, EFL,
     NM,
     UM, BRGM, CLASM, MIXHM,
     ATIM, Z0, VS, VD,
+    LXR = LXR,
     C = C,
     PACKAGE = "CALINE3"
   )
