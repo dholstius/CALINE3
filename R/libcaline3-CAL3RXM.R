@@ -1,6 +1,6 @@
 #' CAL3RXM
 #'
-#' Given a sample of representative meteorological conditions, CALINE3_RECEPTOR_TOTALS
+#' Given a sample of representative meteorological conditions, CAL3RXM
 #' predicts cumulative concentrations at each receptor (from incremental concentrations
 #' contributed by each link)
 #'
